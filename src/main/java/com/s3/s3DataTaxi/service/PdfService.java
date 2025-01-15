@@ -8,66 +8,83 @@ import org.apache.pdfbox.pdmodel.font.encoding.WinAnsiEncoding;
 import org.springframework.stereotype.Service;
 
 import com.s3.s3DataTaxi.controller.ShopInvoice;
+import com.s3.s3DataTaxi.controller.ShopSaleItems;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class PdfService {
 
-    public byte[] generatePdf(List<ShopInvoice> objects) {
+	public List<byte[]> generatePdf(List<ShopInvoice> invoices) {
+    List<byte[]> pdfFiles = new ArrayList<byte[]>();
+
+    for (ShopInvoice invoice : invoices) {
         try (ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream()) {
 
             PDDocument document = new PDDocument();
             PDPage page = new PDPage();
             document.addPage(page);
 
-
             PDPageContentStream contentStream = new PDPageContentStream(document, page);
             contentStream.beginText();
             contentStream.setLeading(14.5f);
             contentStream.newLineAtOffset(50, 700);
 
-         // Load the font from the resources folder
+            // Load font
             InputStream fontStream = getClass().getClassLoader().getResourceAsStream("fonts/Helvetica.ttf");
-            if (fontStream == null) {
-                throw new FileNotFoundException("Font file not found in resources");
-            }
-
-            // Create a PDTrueTypeFont using the InputStream
             PDTrueTypeFont font = PDTrueTypeFont.load(document, fontStream, WinAnsiEncoding.INSTANCE);
+            contentStream.setFont(font, 12);
 
-            // Set the font for the content stream
-            contentStream.setFont(font, 15);
+            // Write invoice details
+            contentStream.showText("Company Name: " + invoice.getCompany_name());
+            contentStream.newLine();
+            contentStream.showText("Net Total Price: " + invoice.getNet_total_price());
+            contentStream.newLine();
+            contentStream.showText("Gross Total Price: " + invoice.getGross_total_price());
+            contentStream.newLine();
+            contentStream.showText("Shipping Fees: " + invoice.getShipping_fees());
+            contentStream.newLine();
+            contentStream.showText("Tax: " + invoice.getTax());
+            contentStream.newLine();
+            contentStream.showText("Subtotal Quantity: " + invoice.getSub_total_quantity());
+            contentStream.newLine();
+            contentStream.newLine();
 
-            
-            for (ShopInvoice obj : objects) {
-                contentStream.showText("ID: " + obj.getId());
+            // Iterate over sold items
+            contentStream.showText("Sold Items:");
+            contentStream.newLine();
+            for (ShopSaleItems item : invoice.getSold_items()) {
+                contentStream.showText(" - Product Code: " + item.getProduct_code());
                 contentStream.newLine();
-                contentStream.showText("Name: " + obj.getName());
+                contentStream.showText("   Product Name: " + item.getProduct_name());
                 contentStream.newLine();
-                contentStream.showText("Sales: " + obj.getSales());
+                contentStream.showText("   Retail Price: " + item.getRetale_price());
+                contentStream.newLine();
+                contentStream.showText("   Quantity: " + item.getQuantity());
+                contentStream.newLine();
+                contentStream.showText("   Total Price: " + item.getTotal_price());
                 contentStream.newLine();
                 contentStream.newLine();
             }
-
             contentStream.endText();
             contentStream.close();
 
-
+            // Save the PDF to ByteArrayOutputStream and add it to the list
             document.save(byteArrayOutputStream);
+            pdfFiles.add(byteArrayOutputStream.toByteArray());
+
             document.close();
-
-
-            return byteArrayOutputStream.toByteArray();
 
         } catch (IOException e) {
             e.printStackTrace();
-            return null;
         }
     }
+
+    return pdfFiles;
+}
+
 }

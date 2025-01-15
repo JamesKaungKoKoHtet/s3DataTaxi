@@ -1,41 +1,60 @@
 package com.s3.s3DataTaxi.controller;
 
+import java.util.List;
+
 public class ShopInvoice {
 	
-	private String name;
-	private String id;
-	private int sales;
+	private int net_total_price;
+	private String company_name;
 	
-	public ShopInvoice(String name, String id, int sales) {
-		super();
-		this.name = name;
-		this.id = id;
-		this.sales = sales;
+	private List<ShopSaleItems> sold_items;
+	
+	private int sub_total_quantity;
+	private int gross_total_price;
+	
+	private int shipping_fees;
+	public int getNet_total_price() {
+		return net_total_price;
 	}
-
-	public String getName() {
-		return name;
+	public void setNet_total_price(int net_total_price) {
+		this.net_total_price = net_total_price;
 	}
-
-	public void setName(String name) {
-		this.name = name;
+	public String getCompany_name() {
+		return company_name;
 	}
-
-	public String getId() {
-		return id;
+	public void setCompany_name(String company_name) {
+		this.company_name = company_name;
 	}
-
-	public void setId(String id) {
-		this.id = id;
+	public List<ShopSaleItems> getSold_items() {
+		return sold_items;
 	}
-
-	public int getSales() {
-		return sales;
+	public void setSold_items(List<ShopSaleItems> sold_items) {
+		this.sold_items = sold_items;
 	}
-
-	public void setSales(int sales) {
-		this.sales = sales;
+	public int getSub_total_quantity() {
+		return sub_total_quantity;
 	}
-
+	public void setSub_total_quantity(int sub_total_quantity) {
+		this.sub_total_quantity = sub_total_quantity;
+	}
+	public int getGross_total_price() {
+		return gross_total_price;
+	}
+	public void setGross_total_price(int gross_total_price) {
+		this.gross_total_price = gross_total_price;
+	}
+	public int getShipping_fees() {
+		return shipping_fees;
+	}
+	public void setShipping_fees(int shipping_fees) {
+		this.shipping_fees = shipping_fees;
+	}
+	public int getTax() {
+		return tax;
+	}
+	public void setTax(int tax) {
+		this.tax = tax;
+	}
+	private int tax;
 	
 }

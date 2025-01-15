@@ -38,26 +38,49 @@ public class S3Controller {
     
     @GetMapping("/upload/test")
     public String uploadPdf() {
-    	
-    	List<ShopInvoice> shopInvoice = new ArrayList<ShopInvoice>();
-    	ShopInvoice shop = new ShopInvoice("shop1", "001", 10000);
-    	shopInvoice.add(shop);
-    	
-    	byte[] pdfFile = pdfService.generatePdf(shopInvoice);
-    	
-    	if (pdfFile != null) {
+    	//Test data
+        List<ShopInvoice> shopInvoice = new ArrayList<>();
+        ShopInvoice shop = new ShopInvoice();
+        shop.setNet_total_price(10000);
+        shop.setCompany_name("test company name");
+        List<ShopSaleItems> sold_items = new ArrayList<>();
+        ShopSaleItems a = new ShopSaleItems();
+        a.setProduct_code("111");
+        a.setProduct_name("test product name");
+        a.setRetale_price(1000);
+        a.setQuantity(10);
+        a.setTotal_price(1000);
+        sold_items.add(a);
+        sold_items.add(a);
+        sold_items.add(a);
+        sold_items.add(a);
+        shop.setSold_items(sold_items);
+        shop.setSub_total_quantity(10000);
+        shop.setGross_total_price(10000);
+        shop.setShipping_fees(10000);
+        shop.setTax(10);
+        shopInvoice.add(shop);
+        shopInvoice.add(shop);
+        
+        // Generate multiple PDFs
+        List<byte[]> pdfFiles = pdfService.generatePdf(shopInvoice);
+
+        if (!pdfFiles.isEmpty()) {
             try {
-				s3Service.uploadToS3(pdfFile, "2025/12/generated-file.pdf");
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-            return "PDF generated and uploaded to S3 successfully!";
+                for (int i = 0; i < pdfFiles.size(); i++) {
+                    String s3Key = "2025/test/generated-file_" + (i + 1) + ".pdf";
+                    s3Service.uploadToS3(pdfFiles.get(i), s3Key);
+                }
+                return "PDFs generated and uploaded to S3 successfully!";
+            } catch (IOException e) {
+                e.printStackTrace();
+                return "Failed to upload PDFs to S3";
+            }
         } else {
-            return "Failed to generate PDF";
+            return "Failed to generate PDFs";
         }
-    	
     }
+
     
     
 

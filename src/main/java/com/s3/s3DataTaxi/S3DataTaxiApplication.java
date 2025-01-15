@@ -12,5 +12,4 @@ public class S3DataTaxiApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(S3DataTaxiApplication.class, args);
 	}
-
 }
