@@ -2,16 +2,20 @@ package com.s3.s3DataTaxi.service;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
 import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
+import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.GetObjectRequest;
 import software.amazon.awssdk.services.s3.model.ListObjectsV2Request;
 import software.amazon.awssdk.services.s3.model.ListObjectsV2Response;
+import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 import software.amazon.awssdk.services.s3.model.S3Exception;
 import software.amazon.awssdk.services.s3.model.S3Object;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -101,4 +105,21 @@ public class S3Service {
             return null;
         }
     }
+    
+    public void uploadToS3(byte[] pdfBytes, String key) throws IOException {
+            // Upload to S3
+            ByteArrayInputStream inputStream = new ByteArrayInputStream(pdfBytes);
+
+            // Create the PutObjectRequest with content type
+            PutObjectRequest putRequest = PutObjectRequest.builder()
+                    .bucket(bucketName)
+                    .key(key)
+                    .contentType("application/pdf") // Set content type directly
+                    .build();
+
+            // Upload the PDF to S3
+            s3Client.putObject(putRequest, RequestBody.fromInputStream(inputStream, pdfBytes.length));
+        
+    }
+    
 }
