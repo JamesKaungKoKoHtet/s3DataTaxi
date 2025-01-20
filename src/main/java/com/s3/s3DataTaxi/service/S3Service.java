@@ -53,7 +53,7 @@ public class S3Service {
              ZipOutputStream zos = new ZipOutputStream(baos)) {
 
             // List all files in the folder (prefix)
-            List<S3Object> objects = listFilesInFolder(folderPrefix);
+            List<S3Object> objects = listFilesInFolder("testingfolder/"+folderPrefix);
 
             // For each file in the folder, download and add it to the zip
             for (S3Object object : objects) {

@@ -7,6 +7,7 @@ import org.apache.pdfbox.pdmodel.font.PDTrueTypeFont;
 import org.apache.pdfbox.pdmodel.font.encoding.WinAnsiEncoding;
 import org.springframework.stereotype.Service;
 
+import com.s3.s3DataTaxi.controller.HtmlToPdfConverter;
 import com.s3.s3DataTaxi.controller.ShopInvoice;
 import com.s3.s3DataTaxi.controller.ShopSaleItems;
 
@@ -87,4 +88,21 @@ public class PdfService {
     return pdfFiles;
 }
 
+		System.out.println("called");
+	        HtmlToPdfConverter converter = new HtmlToPdfConverter();
+	        
+	        String htmlContent = """
+	                <html>
+	                <body>
+	                    <h1>Hello, World!</h1>
+	                    <p>This is a sample PDF generated from HTML.</p>
+	                </body>
+	                </html>
+	                """;
+	        
+	        List<byte[]> pdfBytes = converter.convertHtmlToPdf(htmlContent);
+	        
+	        return pdfBytes;
+	    
+	}
 }

@@ -9,6 +9,7 @@ import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -24,6 +25,27 @@ public class S3Controller {
 	
 	@Autowired
 	private PdfService pdfService;
+	
+	@GetMapping("/test")
+	public String test() throws IOException {
+		//pdfService.test();
+		
+		List<byte[]> pdfFiles = PdfService.testHtmlToPDF();
+		if (!pdfFiles.isEmpty()) {
+            try {
+                for (int i = 0; i < pdfFiles.size(); i++) {
+                    String s3Key = "testingfolder/2025/test/html/generated-file_" + (i + 1) + ".pdf";
+                    s3Service.uploadToS3(pdfFiles.get(i), s3Key);
+                }
+                return "PDFs generated and uploaded to S3 successfully!";
+            } catch (IOException e) {
+                e.printStackTrace();
+                return "Failed to upload PDFs to S3";
+            }
+        } else {
+            return "Failed to generate PDFs";
+        }
+	}
 
     @GetMapping("/download/{year}/{month}")
     public ResponseEntity<ByteArrayResource> downloadZip(@PathVariable String year, @PathVariable String month) {
@@ -68,7 +90,7 @@ public class S3Controller {
         if (!pdfFiles.isEmpty()) {
             try {
                 for (int i = 0; i < pdfFiles.size(); i++) {
-                    String s3Key = "2025/test/generated-file_" + (i + 1) + ".pdf";
+                    String s3Key = "testingfolder/2025/test/generated-file_" + (i + 1) + ".pdf";
                     s3Service.uploadToS3(pdfFiles.get(i), s3Key);
                 }
                 return "PDFs generated and uploaded to S3 successfully!";
