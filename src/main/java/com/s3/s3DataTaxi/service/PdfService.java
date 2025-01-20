@@ -88,6 +88,7 @@ public class PdfService {
     return pdfFiles;
 }
 
+	public static  List<byte[]> testHtmlToPDF() throws IOException{
 		System.out.println("called");
 	        HtmlToPdfConverter converter = new HtmlToPdfConverter();
 	        
