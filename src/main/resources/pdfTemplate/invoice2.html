@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+    <table class="header_table">
+        <tr>
+            <div class="date">2024/11/6 水曜日</div>
+        </tr>
+        <tr>
+            <div class="title">請 求 書</div>
+        </tr>
+        <tr>
+            <tr>
+                <td class="company_name_td">
+                    <div class="company_name">ネックスピュア株式会社様</div>
+                </td>
+                <td>
+                    <div>ゆかりセレクト</div>
+                    <div>〒183-0034</div>
+                    <div>東京都府中市住吉町4-13-6</div>
+                    <div>山西ハウス4,2</div>
+                    <div>TEL：080-1018-0002</div>
+                    <div>Mail：eyephone.jp@me.com</div>
+                    <div>担当：岡部 宅也</div>
+                </td>
+            </tr>
+            <td>下記の通り御請求申し上げます。</td>
+        </tr>
+    </table>
+
+<div class="month"> 10月度 </div>
+<div class="net_total">
+    <span>合計金額</span>
+    <span class="net_total_amount">¥195,779</span>
+    <span>税込</span>
+</div>
+<table class="detail_table">
+    <tbody>
+        <tr class="detail_titles">
+            <th>商品コード</th>
+            <th>商品</th>
+            <th>下代</th>
+            <th>個数</th>
+            <th>合計</th>
+        </tr>
+        <tr class="loop">
+            <td>100001</td>
+            <td>data1</td>
+            <td>¥2,780</td>
+            <td>4</td>
+            <td>¥11,120</td>
+        </tr>
+        <tr class="loop">
+            <td>100001</td>
+            <td>data1</td>
+            <td>¥2,780</td>
+            <td>4</td>
+            <td>¥11,120</td>
+        </tr>
+        <tr class="loop">
+            <td>100001</td>
+            <td>data1</td>
+            <td>¥2,780</td>
+            <td>4</td>
+            <td>¥11,120</td>
+        </tr>
+        <tr class="loop">
+            <td>100001</td>
+            <td>data1</td>
+            <td>¥2,780</td>
+            <td>4</td>
+            <td>¥11,120</td>
+        </tr>
+        <tr class="loop">
+            <td>100001</td>
+            <td>data1</td>
+            <td>¥2,780</td>
+            <td>4</td>
+            <td>¥11,120</td>
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td></td>
+            <td>小計</td>
+            <td></td>
+            <td>42</td>
+            <td>¥11,120</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>送料（税別）</td>
+            <td colspan="2">¥11,120</td>
+            <td style="text-align: right;">¥11,120</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>消費税等１０％対象</td>
+            <td colspan="2">¥11,120</td>
+            <td style="text-align: right;">¥11,120</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>消費税等８％対象</td>
+            <td colspan="2">¥11,120</td>
+            <td style="text-align: right;">¥11,120</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>総合計金額</td>
+            <td colspan="2"></td>
+            <td style="text-align: right;">¥11,120</td>
+        </tr>
+    </tfoot>
+</table>
+<div>
+    <span>＜振込先＞ 下記の口座にお振り込み下さい。尚、振込手数料はご負担頂きますと幸いです。</span>
+</div>
+<div>
+    <div>みずほ銀行（1234）</div>
+    <div>中央区支店（123）</div>
+    <div>普通：1234567</div>
+    <div>ミナシコウスシ</div>
+</div>
+</body>
+</html>
+<style>
+    body {
+        display: flex;
+        flex-direction: column;
+    }
+    .header_table{
+        border: none;
+    }
+    .title{
+        display: flex;
+        flex-direction: row-reverse;
+        font-size: xx-large;
+        justify-content: center;
+    }
+    .date{
+        display: flex;
+        flex-direction: row-reverse;
+    }
+    .company_name{
+        font-size: larger;
+        font-weight: bold;
+        border-bottom: 2px solid black;
+        display: inline-block;
+        min-width: 600px;
+    }
+    .company_name_td{
+        max-width: 600px !important;
+    }
+    .month{
+        font-size: xx-large;
+        font-weight: 540;
+    }
+    .net_total{
+        font-size: x-large;
+    }
+    .net_total_amount{
+        text-align: right;
+        border-bottom: 2px solid black;
+        display: inline-block;
+        min-width: 600px !important;
+    }
+    .detail_table th{
+        background-color: #EFF3F5;
+    }
+    .detail_table th, 
+    .detail_table td {
+        border: 1px solid black;
+        height: 40px;
+    }
+    .detail_table {
+        border-collapse: collapse;
+        margin-top: 10px;
+    }
+
+    .detail_table th:nth-child(1) ,
+    .detail_table td:nth-child(1) {
+        width: 90px;
+    }
+    .detail_table th:nth-child(2),
+    .detail_table td:nth-child(2) {
+        width: 500px; 
+    }
+    .detail_table th:nth-child(3),
+    .detail_table th:nth-child(4),
+    .detail_table th:nth-child(5),
+    .detail_table td:nth-child(3),
+    .detail_table td:nth-child(4),
+    .detail_table td:nth-child(5) {
+        max-width: 65px; 
+    }
+    .detail_table td:nth-child(1),
+    .detail_table td:nth-child(4){
+        text-align: center;
+    }
+    .detail_table td:nth-child(3),
+    .detail_table td:nth-child(5),
+    tfoot td:nth-child(2){
+        text-align: right;
+    }
+</style>

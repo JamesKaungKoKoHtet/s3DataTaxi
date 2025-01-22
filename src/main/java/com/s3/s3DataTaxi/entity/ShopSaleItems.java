@@ -1,4 +1,4 @@
-package com.s3.s3DataTaxi.controller;
+package com.s3.s3DataTaxi.entity;
 
 public class ShopSaleItems {
 	private String product_code;

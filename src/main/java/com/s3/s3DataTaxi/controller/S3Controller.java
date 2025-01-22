@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 
+import com.s3.s3DataTaxi.entity.ShopInvoice;
+import com.s3.s3DataTaxi.entity.ShopSaleItems;
 import com.s3.s3DataTaxi.service.PdfService;
 import com.s3.s3DataTaxi.service.S3Service;
 
@@ -34,7 +36,7 @@ public class S3Controller {
 		if (!pdfFiles.isEmpty()) {
             try {
                 for (int i = 0; i < pdfFiles.size(); i++) {
-                    String s3Key = "testingfolder/2025/test/html/generated-file_" + (i + 1) + ".pdf";
+                    String s3Key = "testingfolder/2025/test/htmltoPDF/generated-file_" + (i + 1) + ".pdf";
                     s3Service.uploadToS3(pdfFiles.get(i), s3Key);
                 }
                 return "PDFs generated and uploaded to S3 successfully!";
