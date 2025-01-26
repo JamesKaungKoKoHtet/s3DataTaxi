@@ -12,6 +12,7 @@ import com.s3.s3DataTaxi.controller.HtmlToPdfConverter;
 import com.s3.s3DataTaxi.entity.Product;
 import com.s3.s3DataTaxi.entity.ShopInvoice;
 import com.s3.s3DataTaxi.entity.ShopSaleItems;
+import com.s3.s3DataTaxi.entity.Shops;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -91,18 +92,12 @@ public class PdfService {
 		return pdfFiles;
 	}
 
-	public static List<byte[]> testHtmlToPDF() throws IOException {
-		System.out.println("called");
+	public static List<byte[]> htmltoPdfGenerate(List<Shops> shops) throws IOException {
 
 		// TEST Data Preparation
 		List<Product> products = new ArrayList<Product>();
 		Product p = new Product();
 		p.setProductCode("100001100001");
-		// p.setProductName("testing testingtesting testingtesting testingtesting
-		// testingtesting testingtesting testingtesting testingtesting testingtesting
-		// testingtesting testingtesting testingtesting testingtesting testingtesting
-		// testingtesting testingtesting testingtesting testingtesting testingtesting
-		// testing testing testing testing testing testing ");
 		p.setProductName("asdf");
 		p.setPrice(1500);
 		p.setQuantity(1500);
@@ -111,7 +106,7 @@ public class PdfService {
 		do {
 			products.add(p);
 			i++;
-		} while (i < 200);
+		} while (i < 170);
 
 		HtmlToPdfConverter converter = new HtmlToPdfConverter();
 		ClassPathResource resource = new ClassPathResource("pdfTemplate/invoice.html");
@@ -147,7 +142,6 @@ public class PdfService {
 
 	private static String formatProductItems(List<Product> products) {
 		StringBuilder itemRows = new StringBuilder();
-		int totalLineCount = products.size();
 		int countCheck = 0;
 		int pageCount = 0;
 		for (Product product : products) {
